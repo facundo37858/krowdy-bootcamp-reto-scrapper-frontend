@@ -2,18 +2,21 @@ import {$} from './selectors'
 
 //desplazamiento por la pagina web 
 
-export const autoScrolling= pixels=>new Promise((resolve,reject)=>{
-    let pixelsScroll= pixels
+const autoscrolling = pixels => new Promise((resolve, reject)=>{
+    let pixelstoScroll = pixels;
 
-    const idInterval= setInterval(()=>{
+    console.log(pixelstoScroll)
 
-        window.scrollTo(0,pixelsScroll)
-        pixelsScroll+=30
-        if(pixelsScroll >document.body.scrollHeight)
+    const idInterval = setInterval(()=>{
+        window.scrollTo(0,pixelstoScroll)
+        pixelstoScroll+=pixels;
 
-        clearInterval(idInterval)
+        if(pixelstoScroll>document.body.scrollHeight) {
+            clearInterval(idInterval);
+            resolve(true);
+        }
+    }, 100)
 
-        resolve('true')
-
-    },100)
 })
+
+export default autoscrolling

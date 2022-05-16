@@ -4,16 +4,19 @@
   var $$ = (selector, node = document) => [...node.querySelectorAll(selector)];
 
   // app/src/utils/autoScrolling.js
-  var autoScrolling = (pixels) => new Promise((resolve, reject) => {
-    let pixelsScroll = pixels;
+  var autoscrolling = (pixels) => new Promise((resolve, reject) => {
+    let pixelstoScroll = pixels;
+    console.log(pixelstoScroll);
     const idInterval = setInterval(() => {
-      window.scrollTo(0, pixelsScroll);
-      pixelsScroll += 30;
-      if (pixelsScroll > document.body.scrollHeight)
+      window.scrollTo(0, pixelstoScroll);
+      pixelstoScroll += pixels;
+      if (pixelstoScroll > document.body.scrollHeight) {
         clearInterval(idInterval);
-      resolve("true");
+        resolve(true);
+      }
     }, 100);
   });
+  var autoScrolling_default = autoscrolling;
 
   // app/src/utils/waitForElement.js
   var waitForElement = (selector) => new Promise((resolve, reject) => {
@@ -27,27 +30,31 @@
       reject();
     }, 1e4);
   });
+  var waitForElement_default = waitForElement;
 
   // app/src/scripts/selectors.js
   var SELECTORS = {
     profile: {
       css: {
-        fullName: "h1"
+        fullname: "h1"
       },
       xpath: {
         educationItems: "(//section[.//span[contains(text(),'Educaci\xF3n')]]//ul)[1]/li",
-        experienceItems: "(//section[.//span[contains(text(),'Experiencia')]]//ul)[1]/li"
+        experiencieItems: "(//section[.//span[contains(text(),'Experiencia')]]//ul)[1]/li"
       }
     },
+    education: "(//section[.//span[contains(text(),'Educaci\xF3n')]]//ul)[3]//div//span[@aria-hidden='true']",
+    experiencie: "(//section[.//span[contains(text(),'Experiencia')]]//ul)[1]/li//div[2]/div[1]/div[1]//span[@aria-hidden='true']",
     search: {
       urlsProfiles: ".search-results-container .ph0 ul.reusable-search__entity-result-list > li span.entity-result__title-text a"
     }
   };
+  var selectors_default = SELECTORS;
 
   // app/src/scripts/getUrls.js
-  waitForElement("h1").then(() => {
-    autoScrolling(30).then(() => {
-      const urlsProfiles = $$(SELECTORS.search.urlsProfiles).map((element) => element.href.split("?")[0]);
+  waitForElement_default("h1").then(() => {
+    autoScrolling_default(30).then(() => {
+      const urlsProfiles = $$(selectors_default.search.urlsProfiles).map((element) => element.href.split("?")[0]);
       let port = chrome.runtime.connect({ name: "safePortUrls" });
       port.postMessage({ urlsProfiles });
     });
