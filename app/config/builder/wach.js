@@ -1,8 +1,8 @@
 import esbuild from 'esbuild'
 
 esbuild.build({
-    entryPoints:[ 'src/background.js','src/scripts/scrapper.js','src/scripts/getUrls.js'],
-    outdir:'build',
+    entryPoints:[ 'app/src/service/background.js','app/src/scripts/scrapper.js','app/src/scripts/getUrls.js'],
+    outdir:'app/build',
     bundle:true,
     watch:true,
     
