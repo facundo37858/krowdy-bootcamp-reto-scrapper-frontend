@@ -9,7 +9,7 @@ import  SELECTORS  from "./selectors";
 waitForElement('h1')
    .then(()=>{
     autoScrolling(30).then(()=>{
-         const fullName = $(SELECTORS.profile.css.fullname).textContent
+         const fullname = $(SELECTORS.profile.css.fullname).textContent
 
          const experienceItems = $x(SELECTORS.profile.xpath.experiencieItems)
 
@@ -39,7 +39,7 @@ waitForElement('h1')
          let port = chrome.runtime.connect({name:"safePort"})
 
          let profile={
-            fullName,
+            fullname,
             pruebaEducation,
             pruebaExperience
          }
@@ -71,8 +71,8 @@ waitForElement('h1')
 
             educationDb['place']=educationArr.shift()
             educationDb['role']=educationArr.shift()
-            educationDb['period'].educationArr.shift()
-            educationDb['country'].educationArr.shift()
+            educationDb['period']=educationArr.shift()
+            educationDb['country']=educationArr.shift()
 
             arrAuxEdu.push(educationDb)
 

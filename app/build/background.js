@@ -4753,13 +4753,8 @@
       });
     } else if (port.name === "safePort") {
       port.onMessage.addListener(async (message) => {
-        await db.profiles.add(message.profiles);
-        for (let i = 0; i < message.arrAuxEdu; i++) {
-          await db.education.add(message.arrAuxEdu[i]);
-        }
-        for (let i = 0; i < message.arrAuxExp; i++) {
-          await db.experience.add(message.arrAuxExp[i]);
-        }
+        console.log(message);
+        await db.profiles.add(message.profile);
         console.log("datos guardados en indexdb");
         console.log(guardian);
         if (guardian < urls?.length) {

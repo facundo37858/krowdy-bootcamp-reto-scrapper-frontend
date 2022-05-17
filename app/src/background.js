@@ -52,17 +52,19 @@ chrome.runtime.onConnect.addListener(port=>{
 
         port.onMessage.addListener(async message=>{
 
-            await db.profiles.add(message.profiles)
+            console.log(message)
 
-            for(let i=0; i < message.arrAuxEdu; i++){
+            await db.profiles.add(message.profile)
 
-                await db.education.add(message.arrAuxEdu[i])
-            }
+            // for(let i=0; i < message.arrAuxEdu; i++){
 
-            for(let i=0; i < message.arrAuxExp; i++){
+            //     await db.education.add(message.arrAuxEdu[i])
+            // }
 
-                await db.experience.add(message.arrAuxExp[i])
-            }
+            // for(let i=0; i < message.arrAuxExp; i++){
+
+            //     await db.experience.add(message.arrAuxExp[i])
+            // }
 
 
 

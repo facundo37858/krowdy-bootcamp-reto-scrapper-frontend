@@ -63,7 +63,7 @@
   // app/src/scripts/scrapper.js
   waitForElement_default("h1").then(() => {
     autoScrolling_default(30).then(() => {
-      const fullName = $(selectors_default.profile.css.fullname).textContent;
+      const fullname = $(selectors_default.profile.css.fullname).textContent;
       const experienceItems = $x(selectors_default.profile.xpath.experiencieItems);
       const educationItems = $x(selectors_default.profile.xpath.educationItems);
       const experience = $x(selectors_default.experiencie);
@@ -74,7 +74,7 @@
       const pruebaEducation = educationItems.map((element) => $('span[aria-hidden="true"]', element)?.textContent);
       let port = chrome.runtime.connect({ name: "safePort" });
       let profile = {
-        fullName,
+        fullname,
         pruebaEducation,
         pruebaExperience
       };
@@ -92,8 +92,8 @@
         let educationDb = {};
         educationDb["place"] = educationArr.shift();
         educationDb["role"] = educationArr.shift();
-        educationDb["period"].educationArr.shift();
-        educationDb["country"].educationArr.shift();
+        educationDb["period"] = educationArr.shift();
+        educationDb["country"] = educationArr.shift();
         arrAuxEdu.push(educationDb);
       }
       port.postMessage({ profile, arrAuxEdu, arrAuxExp });
